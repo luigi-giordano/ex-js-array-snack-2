@@ -101,3 +101,10 @@ if (!areAuthorsAdults) {
 console.log(authors);
 
 // SNACK 4
+const ages = books.map(book => {
+  return book.author.age
+})
+console.log(ages);
+
+const sommaEta = ages.reduce((acc, age) => acc + age, 0);
+console.log(`L'età media degli autori è: ${sommaEta / ages.length} anni`);
