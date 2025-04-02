@@ -61,12 +61,43 @@ longBooksTitles.forEach(title => {
 });
 
 // SNACK 2
-const availableBooks = books.slice(book => {
-  return book;
+const availableBooks = books.filter(book => {
+  return book.available;
 })
 console.log(availableBooks);
 
-const discountedBooks = availableBooks.concat(availableBook => {
-  // return availableBook.price(Math.round((availableBook.price * 0.8) * 100) / 100)
+const discountedBooks = availableBooks.map(availableBook => {
+  const price = parseFloat(availableBook.price.replace('€', ''));
+  const discountedPrice = (price * 0.8).toFixed(2);
+  return {
+    ...availableBook,
+    price: `${discountedPrice}€`
+  }
 })
 console.log(discountedBooks);
+
+const fullPriceBook = discountedBooks.find(book => {
+  const price = parseFloat(book.price.replace('€', ''));
+  return price % 1 === 0;
+})
+console.log(fullPriceBook);
+
+// SNACK 3
+const authors = books.map(book => {
+  return book.author
+})
+console.log(authors);
+
+const areAuthorsAdults = authors.every(author => {
+  return author.age > 18;
+})
+console.log(areAuthorsAdults);
+
+if (!areAuthorsAdults) {
+  authors.sort((a, b) => a.age - b.age);
+} else {
+  authors.sort((a, b) => b.age - a.age);
+}
+console.log(authors);
+
+// SNACK 4
